@@ -10,11 +10,15 @@ jobs:
   musicbox:
    runs-on: ubuntu-latest
    steps:
-     - uses: actions/checkout@v2
-     - run: npm install
-     - name: Update
-       uses: ./
-       env:
+    - uses: ./
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+       node-version: '20'
+       cache: 'npm'
+    - name: install npm deps
+      run: npm install
+      env:
           LASTFM_KEY: ${{ secrets.LASTFM_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           LFMUSERNAME: ${{ secrets.LFMUSERNAME }}
